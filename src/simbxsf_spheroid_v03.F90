@@ -247,7 +247,7 @@ do kxstep=1,npoints
     kz1=kz
     kz2=kz
    end if
-   if (boundary==.TRUE.) then
+   if (boundary .eqv. .TRUE.) then
     kxdummy1=kx1-(pi/realspacelatt)-(kshiftx*2.0D0*pi/realspacelatt)
     kydummy1=ky1-(pi/realspacelatt)-(kshifty*2.0D0*pi/realspacelatt)
     kzdummy1=kz1-(pi/realspacelatt)-(kshiftz*2.0D0*pi/realspacelatt)

@@ -1,4 +1,5 @@
-FC=ifort
+#FC=ifort
+FC=gfortran
 FFLAGS=
 
 ODIR=bin

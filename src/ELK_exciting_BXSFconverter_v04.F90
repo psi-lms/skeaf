@@ -96,7 +96,7 @@ write(*,'('' Reading BXSF file: '',A50)')filenamein
   open(15,file=filenamein,status='old')
 
   keepreading=.TRUE.
-  do while (keepreading==.TRUE.)
+  do while (keepreading .eqv. .TRUE.)
    read(15,fmt='(A100)')tempstringread
    tempstringread=TRIM(tempstringread)
    if ((INDEX(tempstringread,'Fermi Energy')/=0).OR.(INDEX(tempstringread,'fermi energy')/=0)&
@@ -203,7 +203,7 @@ write(*,'('' Reading BXSF file: '',A50)')filenamein
   numkpoints=nxin*nyin*nzin
   numread=0
   keepreading=.TRUE.
-  do while (keepreading==.TRUE.)
+  do while (keepreading .eqv. .TRUE.)
    read(15,fmt='(A100)')tempstringread
    tempstringread=TRIM(tempstringread)
    if ((INDEX(tempstringread,'BAND:')/=0).OR.(INDEX(tempstringread,'Band:')/=0)&
@@ -268,12 +268,12 @@ do while (((periodicgrid/='y').AND.(periodicgrid/='n')).OR.(periodicsure/='y'))
  write(*,'('' Are energies defined on a Periodic Grid (rather than General Grid)? [y or n] '')')
  write(*,'('' (Usually y for BXSFs made with ELK v1.4.22 or exciting helium-3.)'')')
  read(*,*)periodicgrid
- if ((periodicgrid=='y').AND.(detperiodicgrid==.FALSE.)) then
+ if ((periodicgrid=='y').AND.(detperiodicgrid .eqv. .FALSE.)) then
   write(*,'('' '')')
   write(*,'('' ARE YOU SURE? [y or n] '')')
   write(*,'('' (Rough check indicates that it might not be a Periodic Grid.)'')')
   read(*,*)periodicsure
- else if ((periodicgrid=='n').AND.(detperiodicgrid==.TRUE.)) then
+ else if ((periodicgrid=='n').AND.(detperiodicgrid .eqv. .TRUE.)) then
   write(*,'('' '')')
   write(*,'('' ARE YOU SURE? [y or n] '')')
   write(*,'('' (Rough check indicates that it is probably a Periodic Grid.)'')')
