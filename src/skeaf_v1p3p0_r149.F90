@@ -566,17 +566,17 @@ do while (parcorrect=='n')
   read(14,'(A50)')filename
   read(14,'(F12.6)')fermienergy
   read(14,'(I4)')numint
-  read(14,'(F10.6)')theta
-  read(14,'(F10.6)')phi
+  read(14,'(F11.6)')theta
+  read(14,'(F11.6)')phi
   read(14,'(A1)')hvd
   read(14,'(F10.6)')minextfreq
   read(14,'(F7.3)')freqsamefrac
   read(14,'(F7.3)')avgsamefrac
   read(14,'(A1)')allowextnearwalls
-  read(14,'(F10.6)')thetastart
-  read(14,'(F10.6)')thetaend
-  read(14,'(F10.6)')phistart
-  read(14,'(F10.6)')phiend
+  read(14,'(F11.6)')thetastart
+  read(14,'(F11.6)')thetaend
+  read(14,'(F11.6)')phistart
+  read(14,'(F11.6)')phiend
   read(14,'(I5)')numrots
 
   ! Convert angles from degrees to radians
@@ -731,8 +731,8 @@ do while (parcorrect=='n')
      phi=phistart 
 
      write(*,'('' '')')
-     write(*,'('' Using '',I5,'' angles from theta = '',f10.6, &
-& '', phi = '',f10.6, '' degrees to theta = '',f10.6,'', phi = '',f10.6,'' degrees'')') &
+     write(*,'('' Using '',I5,'' angles from theta = '',f11.6, &
+& '', phi = '',f11.6, '' degrees to theta = '',f11.6,'', phi = '',f11.6,'' degrees'')') &
 &numrots,180.0D0*thetastart/pi,180.0D0*phistart/pi,180.0D0*thetaend/pi, &
 &180.0D0*phiend/pi
     end if
@@ -741,7 +741,7 @@ do while (parcorrect=='n')
 
     if (badinput.eqv..FALSE.) then
      write(*,'('' '')')
-     write(*,'('' Using theta = '',f10.6, '' degrees, phi = '',f10.6, '' degrees '')') &
+     write(*,'('' Using theta = '',f11.6, '' degrees, phi = '',f11.6, '' degrees '')') &
 &180.0D0*theta/pi,180.0D0*phi/pi
      thetastart=theta
      thetaend=theta
@@ -837,10 +837,10 @@ do while (parcorrect=='n')
    write(*,'('' New      numint = '',I4,''                       numkpoints = '',I11)')numint,numintkpoints
    if (hvd=='r') then
     write(*,'('' H-vector direction: '',A1,''   Number of auto rotated angles = '',I5)')hvd,numrots
-    write(*,'('' Theta = '',F10.6,'' to '',F10.6,'' degrees;  Phi = '',F10.6,'' to '',F10.6,'' degrees '')') &
+    write(*,'('' Theta = '',F11.6,'' to '',F11.6,'' degrees;  Phi = '',F11.6,'' to '',F11.6,'' degrees '')') &
 &thetastart*180.0D0/pi,thetaend*180.0D0/pi,phistart*180.0D0/pi,phiend*180.0D0/pi
    else
-    write(*,'('' H-vector direction: '',A1,''   Theta = '',F10.6,'' degrees   Phi = '',F10.6,'' degrees '')') &
+    write(*,'('' H-vector direction: '',A1,''   Theta = '',F11.6,'' degrees   Phi = '',F11.6,'' degrees '')') &
 &hvd,theta*180.0D0/pi,phi*180.0D0/pi
    end if
    write(*,'('' Minimum extremal FS freq.: '',F8.4, '' kT '')')minextfreq
@@ -876,17 +876,17 @@ if (parsread=='n') then
  write(16,'(A50,2x,''| Filename (50 chars. max)'')')filename
  write(16,'(f12.6,40x,''| Fermi energy (Ryd)'')')fermienergy
  write(16,'(I4,48x,''| Interpolated number of points per single side'')')numint
- write(16,'(F10.6,42x,''| Theta (degrees)'')')180.0D0*theta/pi
- write(16,'(F10.6,42x,''| Phi (degrees)'')')180.0D0*phi/pi
+ write(16,'(F11.6,41x,''| Theta (degrees)'')')180.0D0*theta/pi
+ write(16,'(F11.6,41x,''| Phi (degrees)'')')180.0D0*phi/pi
  write(16,'(A1,51x,''| H-vector direction'')')hvd
  write(16,'(F8.4,44x,''| Minimum extremal FS freq. (kT)'')')minextfreq
  write(16,'(f7.3,45x,''| Maximum fractional diff. between orbit freqs. for averaging'')')freqsamefrac
  write(16,'(f7.3,45x,''| Maximum distance between orbit avg. coords. for averaging'')')avgsamefrac
  write(16,'(A1,51x,''| Allow extremal orbits near super-cell walls?'')')allowextnearwalls
- write(16,'(F10.6,42x,''| Starting theta (degrees)'')')180.0D0*thetastart/pi
- write(16,'(F10.6,42x,''| Ending theta (degrees)'')')180.0D0*thetaend/pi
- write(16,'(F10.6,42x,''| Starting phi (degrees)'')')180.0D0*phistart/pi
- write(16,'(F10.6,42x,''| Ending phi (degrees)'')')180.0D0*phiend/pi
+ write(16,'(F11.6,41x,''| Starting theta (degrees)'')')180.0D0*thetastart/pi
+ write(16,'(F11.6,41x,''| Ending theta (degrees)'')')180.0D0*thetaend/pi
+ write(16,'(F11.6,41x,''| Starting phi (degrees)'')')180.0D0*phistart/pi
+ write(16,'(F11.6,41x,''| Ending phi (degrees)'')')180.0D0*phiend/pi
  write(16,'(I5,47x,''| Number of rotation angles'')')numrots
  endfile 16
  close(16,status='keep')
@@ -902,10 +902,10 @@ write(17,'('' Original     nx = '',I4,''  ny = '',I4,''  nz = '',I4,''   numkpoi
 write(17,'('' New      numint = '',I4,''                       numkpoints = '',I11)')numint,numintkpoints
 if (hvd=='r') then
  write(17,'('' H-vector direction: '',A1,''   Number of auto rotated angles = '',I5)')hvd,numrots
- write(17,'('' Theta = '',F10.6,'' to '',F10.6,'' degrees;  Phi = '',F10.6,'' to '',F10.6,'' degrees '')') &
+ write(17,'('' Theta = '',F11.6,'' to '',F11.6,'' degrees;  Phi = '',F11.6,'' to '',F11.6,'' degrees '')') &
 &thetastart*180.0D0/pi,thetaend*180.0D0/pi,phistart*180.0D0/pi,phiend*180.0D0/pi
 else
- write(17,'('' H-vector direction: '',A1,''   Theta = '',F10.6,'' degrees   Phi = '',F10.6,'' degrees '')') &
+ write(17,'('' H-vector direction: '',A1,''   Theta = '',F11.6,'' degrees   Phi = '',F11.6,'' degrees '')') &
 &hvd,theta*180.0D0/pi,phi*180.0D0/pi
 end if
 write(17,'('' Minimum extremal FS freq.: '',F8.4, '' kT '')')minextfreq
@@ -928,10 +928,10 @@ write(18,'('' Original     nx = '',I4,''  ny = '',I4,''  nz = '',I4,''   numkpoi
 write(18,'('' New      numint = '',I4,''                       numkpoints = '',I11)')numint,numintkpoints
 if (hvd=='r') then
  write(18,'('' H-vector direction: '',A1,''   Number of auto rotated angles = '',I5)')hvd,numrots
- write(18,'('' Theta = '',F10.6,'' to '',F10.6,'' degrees;  Phi = '',F10.6,'' to '',F10.6,'' degrees '')') &
+ write(18,'('' Theta = '',F11.6,'' to '',F11.6,'' degrees;  Phi = '',F11.6,'' to '',F11.6,'' degrees '')') &
 &thetastart*180.0D0/pi,thetaend*180.0D0/pi,phistart*180.0D0/pi,phiend*180.0D0/pi
 else
- write(18,'('' H-vector direction: '',A1,''   Theta = '',F10.6,'' degrees   Phi = '',F10.6,'' degrees '')') &
+ write(18,'('' H-vector direction: '',A1,''   Theta = '',F11.6,'' degrees   Phi = '',F11.6,'' degrees '')') &
 &hvd,theta*180.0D0/pi,phi*180.0D0/pi
 end if
 write(18,'('' Minimum extremal FS freq.: '',F8.4, '' kT '')')minextfreq
@@ -1228,12 +1228,12 @@ do rotstepper=1,numrots
 
   write(17,'('' '')')
   write(17,'('' ------------------------------ '')')
-  write(17,'('' ANGLE '',I5,'' of '',I5,''; theta = '',F10.6,'', phi = '',F10.6,'' degrees'')') &
+  write(17,'('' ANGLE '',I5,'' of '',I5,''; theta = '',F11.6,'', phi = '',F11.6,'' degrees'')') &
 &rotstepper,numrots,theta*180.0D0/pi,phi*180.0D0/pi
 
   write(18,'('' '')')
   write(18,'('' ------------------------------ '')')
-  write(18,'('' ANGLE '',I5,'' of '',I5,''; theta = '',F10.6,'', phi = '',F10.6,'' degrees'')') &
+  write(18,'('' ANGLE '',I5,'' of '',I5,''; theta = '',F11.6,'', phi = '',F11.6,'' degrees'')') &
 &rotstepper,numrots,theta*180.0D0/pi,phi*180.0D0/pi
 
   write(*,'('' '')')
@@ -2591,9 +2591,9 @@ do rotstepper=1,numrots
    percentdone=0.0D0
 
 ! write header
-   write(20,'(''Theta(deg) = '',F10.6,'' , Phi(deg) = '',F10.6,'' , Number of orbits = '',I5,&
+   write(20,'(''Theta(deg) = '',F11.6,'' , Phi(deg) = '',F11.6,'' , Number of orbits = '',I5,&
 &'' , (Angstrom^-1) units'')')180.0D0*theta/pi,180.0D0*phi/pi,numsorted
-   write(21,'(''Theta(deg) = '',F10.6,'' , Phi(deg) = '',F10.6,'' , Number of orbits = '',I5,&
+   write(21,'(''Theta(deg) = '',F11.6,'' , Phi(deg) = '',F11.6,'' , Number of orbits = '',I5,&
 &'' , (a.u.^-1) units'')')180.0D0*theta/pi,180.0D0*phi/pi,numsorted
 
 ! find and write orbits
@@ -2698,7 +2698,7 @@ do rotstepper=1,numrots
 &sr2numorbsarray(i),sr2avgxrucarray(i),sr2stdavgxrucarray(i), &
 &sr2avgyrucarray(i),sr2stdavgyrucarray(i),sr2avgzrucarray(i),sr2stdavgzrucarray(i)
   write(18,'('' '')')
-  write(19,'(F10.6,'','',F10.6,'','',ES14.6,'','',ES14.6,'','',ES14.6,'','',F6.3,'','',I5)')&
+  write(19,'(F11.6,'','',F11.6,'','',ES14.6,'','',ES14.6,'','',ES14.6,'','',F6.3,'','',I5)')&
 &180.0D0*theta/pi,180.0D0*phi/pi,sr2freqarray(i),sr2massarray(i),sr2curvarray(i),&
 &sr2orbtypearray(i),sr2numorbsarray(i)
   write(17,'('' Freq. = '',F8.4,''+/-'',F8.4,'' kT, m* = '',F8.4,''+/-'',F8.4 &
