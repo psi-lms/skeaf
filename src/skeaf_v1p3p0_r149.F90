@@ -467,6 +467,11 @@ double precision,save::outlineavgyext
 integer(KIND=int8byte),save::noutlinepts
 double precision,save::outlinefreq
 
+double precision,parameter :: ax_c = 3000.0d0, ax_b = 2000.0d0, ax_a = 1000.0d0
+character(len=100) :: tmp_autoangle
+double precision :: theta_degree, phi_degree, thetastart_degree, phistart_degree, &
+& thetaend_degree, phiend_degree
+
 ! Shows title and reads parameters from file if desired
 write(*,'('' '')')
 write(*,'('' ----------------------------------------------------------------------------- '')')
@@ -616,6 +621,107 @@ do while (parcorrect=='n')
   write(*,'('' ***BXSF ERROR: Number of energies read from file differs from number in file header!***'')')
   write(*,'('' '')')
   STOP
+ end if
+
+ ! detect settings in config.in and use auto-computed values
+ if (parsread=='y') then
+   if (minextfreq <= -1.0D0) then
+      minextfreq = freq2kmax
+      write(*, *) '!! Minimum allowed extremal Fermi surface dHvA frequency set to auto-computed value: ', minextfreq, ' kT'
+   end if
+
+   ! ax_c is the largest, so check for it first
+   ! need to 1st back to degree
+   ! psetangle internal convert to radian
+   theta_degree = theta * 180.0D0 / pi
+   phi_degree = phi * 180.0D0 / pi
+   thetastart_degree = thetastart * 180.0D0 / pi
+   phistart_degree = phistart * 180.0D0 / pi
+   thetaend_degree = thetaend * 180.0D0 / pi
+   phiend_degree = phiend * 180.0D0 / pi
+
+   if (theta_degree >= ax_c) then
+      tmp_autoangle = 'c'
+      CALL psetangle(tmp_autoangle,theta_degree,phi_degree)
+      theta = theta_degree
+      phi = phi_degree
+      theta_degree = theta * 180.0D0 / pi
+      phi_degree = phi * 180.0D0 / pi
+      write(*, *) '!! theta/phi set to c axis: theta=', theta_degree, ' phi=', phi_degree, ' degrees'
+   else if (theta_degree >= ax_b) then
+      tmp_autoangle = 'b'
+      CALL psetangle(tmp_autoangle,theta_degree,phi_degree)
+      theta = theta_degree
+      phi = phi_degree
+      theta_degree = theta * 180.0D0 / pi
+      phi_degree = phi * 180.0D0 / pi
+      write(*, *) '!! theta/phi set to b axis: theta=', theta_degree, ' phi=', phi_degree, ' degrees'
+   else if (theta_degree >= ax_a) then
+      tmp_autoangle = 'a'
+      CALL psetangle(tmp_autoangle,theta_degree,phi_degree)
+      theta = theta_degree
+      phi = phi_degree
+      theta_degree = theta * 180.0D0 / pi
+      phi_degree = phi * 180.0D0 / pi
+      write(*, *) '!! theta/phi set to a axis: theta=', theta_degree, ' phi=', phi_degree, ' degrees'
+   end if
+   ! I ignore check on phi
+
+   ! check thetastart
+   if (thetastart_degree >= ax_c) then
+      tmp_autoangle = 'c'
+      CALL psetangle(tmp_autoangle,thetastart_degree,phistart_degree)
+      thetastart = thetastart_degree
+      phistart = phistart_degree
+      thetastart_degree = thetastart * 180.0D0 / pi
+      phistart_degree = phistart * 180.0D0 / pi
+      write(*, *) '!! thetastart/phistart set to c axis: thetastart=', thetastart_degree, ' phistart=', phistart_degree, ' degrees'
+   else if (thetastart_degree >= ax_b) then
+      tmp_autoangle = 'b'
+      CALL psetangle(tmp_autoangle,thetastart_degree,phistart_degree)
+      thetastart = thetastart_degree
+      phistart = phistart_degree
+      thetastart_degree = thetastart * 180.0D0 / pi
+      phistart_degree = phistart * 180.0D0 / pi
+      write(*, *) '!! thetastart/phistart set to b axis: thetastart=', thetastart_degree, ' phistart=', phistart_degree, ' degrees'
+   else if (thetastart_degree >= ax_a) then
+      tmp_autoangle = 'a'
+      CALL psetangle(tmp_autoangle,thetastart_degree,phistart_degree)
+      thetastart = thetastart_degree
+      phistart = phistart_degree
+      thetastart_degree = thetastart * 180.0D0 / pi
+      phistart_degree = phistart * 180.0D0 / pi
+      write(*, *) '!! thetastart/phistart set to a axis: thetastart=', thetastart_degree, ' phistart=', phistart_degree, ' degrees'
+   end if
+   ! I ignore check on phistart
+
+   ! check thetaend
+   if (thetaend_degree >= ax_c) then
+      tmp_autoangle = 'c'
+      CALL psetangle(tmp_autoangle,thetaend_degree,phiend_degree)
+      thetaend = thetaend_degree
+      phiend = phiend_degree
+      thetaend_degree = thetaend * 180.0D0 / pi
+      phiend_degree = phiend * 180.0D0 / pi
+      write(*, *) '!! thetaend/phiend set to c axis: thetaend=', thetaend_degree, ' phiend=', phiend_degree, ' degrees'
+   else if (thetaend_degree >= ax_b) then
+      tmp_autoangle = 'b'
+      CALL psetangle(tmp_autoangle,thetaend_degree,phiend_degree)
+      thetaend = thetaend_degree
+      phiend = phiend_degree
+      thetaend_degree = thetaend * 180.0D0 / pi
+      phiend_degree = phiend * 180.0D0 / pi
+      write(*, *) '!! thetaend/phiend set to b axis: thetaend=', thetaend_degree, ' phiend=', phiend_degree, ' degrees'
+   else if (thetaend_degree >= ax_a) then
+      tmp_autoangle = 'a'
+      CALL psetangle(tmp_autoangle,thetaend_degree,phiend_degree)
+      thetaend = thetaend_degree
+      phiend = phiend_degree
+      thetaend_degree = thetaend * 180.0D0 / pi
+      phiend_degree = phiend * 180.0D0 / pi
+      write(*, *) '!! thetaend/phiend set to a axis: thetaend=', thetaend_degree, ' phiend=', phiend_degree, ' degrees'
+   end if
+   ! I ignore check on phiend
  end if
 
  ! This section lets the user choose a Fermi energy
@@ -876,10 +982,11 @@ if (parsread=='n') then
  write(16,'(A50,2x,''| Filename (50 chars. max)'')')filename
  write(16,'(f12.6,40x,''| Fermi energy (Ryd)'')')fermienergy
  write(16,'(I4,48x,''| Interpolated number of points per single side'')')numint
- write(16,'(F11.6,41x,''| Theta (degrees)'')')180.0D0*theta/pi
+ write(16,'(F11.6,41x,''| Theta (degrees), if >= ''F7.1'' use a axis, >= ''F7.1'' use &
+ &b, >= ''F7.1'' use c, same for all angles'')')180.0D0*theta/pi, ax_a, ax_b, ax_c
  write(16,'(F11.6,41x,''| Phi (degrees)'')')180.0D0*phi/pi
  write(16,'(A1,51x,''| H-vector direction'')')hvd
- write(16,'(F8.4,44x,''| Minimum extremal FS freq. (kT)'')')minextfreq
+ write(16,'(F8.4,44x,''| Minimum extremal FS freq. (kT), if <= -1 use auto value'')')minextfreq
  write(16,'(f7.3,45x,''| Maximum fractional diff. between orbit freqs. for averaging'')')freqsamefrac
  write(16,'(f7.3,45x,''| Maximum distance between orbit avg. coords. for averaging'')')avgsamefrac
  write(16,'(A1,51x,''| Allow extremal orbits near super-cell walls?'')')allowextnearwalls
