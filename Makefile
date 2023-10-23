@@ -1,6 +1,7 @@
 #FC=ifort
 FC=gfortran
 FFLAGS=
+#FFLAGS=-g -fbacktrace -Og
 
 ODIR=bin
 SDIR=src

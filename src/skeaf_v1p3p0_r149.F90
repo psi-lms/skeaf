@@ -56,7 +56,7 @@ double precision, parameter :: convfsdade2mstar = 0.089135845D0 ! Note: this mul
 ! Variable declarations
 character(len=100),save::parsread
 character(len=50),save::filename
-character(len=100),save::tempstringread
+character(len=200),save::tempstringread
 logical,save::badinput
 logical,save::runonce
 double precision,save::readfermienergy
@@ -3088,7 +3088,7 @@ CONTAINS
   numread=0
   keepreading=.TRUE.
   do while (keepreading.eqv..TRUE.)
-   read(15,fmt='(A100)')tempstringread
+   read(15,fmt='(A200)')tempstringread
    tempstringread=TRIM(tempstringread)
    if ((INDEX(tempstringread,'BAND:')/=0).OR.(INDEX(tempstringread,'Band:')/=0)&
 &.OR.(INDEX(tempstringread,'band:')/=0).OR.(INDEX(tempstringread,'prod:')/=0)&
